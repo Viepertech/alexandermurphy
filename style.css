@@ -4,15 +4,15 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  color: #fff;
+  color: #111;
   background: url('images/forest-sunset.jpg') no-repeat center center fixed;
   background-size: cover;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   position: relative;
   z-index: -2;
 }
 
-/* Optional overlay for readability */
+/* Overlay: only used in dark mode now */
 body::before {
   content: '';
   position: fixed;
@@ -20,11 +20,20 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* overlay */
   z-index: 0;
 }
 
-/* Layout elements should appear above overlay */
+/* Remove overlay in light mode */
+body:not(.dark)::before {
+  background: none;
+}
+
+/* Dark mode adds readable overlay */
+body.dark::before {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Main layout should appear above overlay */
 header, nav, section, footer {
   position: relative;
   z-index: 1;
@@ -32,15 +41,15 @@ header, nav, section, footer {
 
 /* Header */
 header {
-  background: rgba(51, 51, 51, 0.8);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.9); /* light background */
+  color: #111;
   padding: 20px;
   text-align: center;
 }
 
 /* Nav Bar */
 nav {
-  background: rgba(68, 68, 68, 0.85);
+  background: rgba(255, 255, 255, 0.8);
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -48,27 +57,36 @@ nav {
 }
 
 nav a {
-  color: white;
+  color: #111;
   text-decoration: none;
 }
 
-/* Sections */
+/* Sections – transparent in light mode */
 section {
-  background: rgba(0, 0, 0, 0.5); /* Optional semi-transparent bg */
+  background: transparent;
   margin: 20px;
   padding: 20px;
   border-radius: 8px;
 }
 
-/* Dark mode toggle */
+/* Section background ONLY in dark mode */
+body.dark section {
+  background: rgba(0, 0, 0, 0.5);
+  color: #f0f0f0;
+}
+
+/* Dark mode tweaks */
 body.dark {
   background-color: #121212;
   color: #f0f0f0;
-  background-blend-mode: overlay;
 }
 
-/* Optional: Dark mode tweaks for header/nav */
 body.dark header,
 body.dark nav {
   background-color: rgba(20, 20, 20, 0.8);
+  color: #fff;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
