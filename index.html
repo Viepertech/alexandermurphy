@@ -34,5 +34,19 @@
     <p>Email: <a href="mailto:murphyalex2000@gmail.com">murphyalex2000@gmail.com</a></p>
     <p>LinkedIn: <a href="https://linkedin.com/in/alexanderrnmurphy" target="_blank">alexanderrnmurphy</a></p>
   </section>
+  <script>
+  const body = document.body;
+  const toggle = document.getElementById("dark-toggle");
+  toggle.addEventListener("click", () => {
+    body.classList.toggle("dark");
+    localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+  });
+
+  window.onload = () => {
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark");
+    }
+  };
+</script>
 </body>
 </html>
