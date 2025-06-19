@@ -1,10 +1,17 @@
-document.getElementById("dark-toggle").addEventListener("click", function () {
-  document.body.classList.toggle("dark");
-  localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-});
+window.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById("dark-toggle");
+  const darkClass = "dark";
 
-window.onload = () => {
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
+  // Load saved theme preference
+  if (localStorage.getItem("theme") === darkClass) {
+    document.body.classList.add(darkClass);
+    toggleBtn.setAttribute("aria-pressed", "true");
   }
-};
+
+  // Toggle theme on button click
+  toggleBtn.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle(darkClass);
+    localStorage.setItem("theme", isDark ? darkClass : "light");
+    toggleBtn.setAttribute("aria-pressed", isDark.toString());
+  });
+});
